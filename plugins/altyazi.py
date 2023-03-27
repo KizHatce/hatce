@@ -50,7 +50,6 @@ async def planet(bot, message):
            text += f"**Dil**: {dil}{sur}**Link**: https://planetdp.org{altyazilar}\n\n"
            say+=1
            url = "https://planetdp.org/subtitle/download"
-           await message.reply_text(f"{subid}\n\n{token}\n\n{uniquekey}")
            data = {
                'subtitle_id': subid,
                '_method': "POST",
@@ -75,10 +74,7 @@ async def planet(bot, message):
            content = request.content
            with open(file_name, "wb") as dosya:
                dosya.write(content)             
-           await message.reply_document(
-               document=file_name, 
-               caption=text)
-           text = ""
+       await message.reply_text(text)
     except Exception as e:
         await message.reply_text(e)
     
