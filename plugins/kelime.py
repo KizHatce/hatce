@@ -11,7 +11,8 @@ async def dongu(bot, message, sayi, say, tahmin):
     if int(tedilen.text) == sayi:
         await message.reply_text(f"Tebrikler {say} deneyişte doğru cevabı buldun..")
     else:
-        await dongu(bot, message, sayi, say)
+        tahmin = tedilen.text
+        await dongu(bot, message, sayi, say, tahmin)
 
 async def sayitahmin(bot, message, sayi, say):
     tedilen = await bot.ask(message.chat.id, "aklımdan bir sayı tuttum bul bakalım..")
