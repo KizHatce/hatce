@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyromod.listen import ask
+from pyromod import listen
 import random
 
 async def dongu(bot, message, sayi, say):
