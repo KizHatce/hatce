@@ -2,9 +2,12 @@ from pyrogram import Client, filters
 from pyromod import listen
 import random
 
-async def dongu(bot, message, sayi, say):
+async def dongu(bot, message, sayi, say, tahmin):
     say +=1
-    tedilen = await bot.ask(message.chat.id, "Yanlış Cevap!")
+    if int(tahmin) > sayi:
+        tedilen = await bot.ask(message.chat.id, "Yanlış Cevap!\nAşağı İn.. ")
+    elif int(tahmin) < sayi:
+        tedilen = await bot.ask(message.chat.id, "Yanlış Cevap!\nYukarı Çık.. ")
     if int(tedilen.text) == sayi:
         await message.reply_text(f"Tebrikler {say} deneyişte doğru cevabı buldun..")
     else:
@@ -13,10 +16,11 @@ async def dongu(bot, message, sayi, say):
 async def sayitahmin(bot, message, sayi, say):
     tedilen = await bot.ask(message.chat.id, "aklımdan bir sayı tuttum bul bakalım..")
     say +=1
+    tahmin = tedilen.text
     if int(tedilen.text) == sayi:
         await message.reply_text(f"Tebrikler **{say}** deneyişte doğru cevabı buldun..")
     else:
-        await dongu(bot, message, sayi, say)
+        await dongu(bot, message, sayi, say, tahmin)
 
 @Client.on_message(filters.command('sayi'))
 async def sayioyunu(bot, message):
