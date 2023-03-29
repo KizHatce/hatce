@@ -2,6 +2,7 @@ from pyrogram import Client, filters
 import requests
 from bs4 import BeautifulSoup
 import logging
+import math
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     handlers=[logging.FileHandler('log.txt'), logging.StreamHandler()],
                     level=logging.INFO)
@@ -25,7 +26,10 @@ async def havabilgisi(bot, message):
         corba = BeautifulSoup(istek.content, "lxml")
         bilgi = corba.findAll('div', class_='BNeawe')
         gun, durum = bilgi[3].text.strip().split('\n')
-        derece = corba.find('div', class_='BNeawe').text
+        derece_temp = corba.find('div', class_='BNeawe').text.split("°F")
+        dereceint = int(derece_temp[0])
+        derecetemp = dereceint - 32
+        derece = derecetemp / 5/9
         LOGGER.info(corba)
         await message.reply_text(f"{il}/{ilce} Hava Durumu:\n\nGün: {gun}\nDurum: {durum}\nDerece: {derece}")
     except Exception as e:
