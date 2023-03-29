@@ -31,6 +31,6 @@ async def havabilgisi(bot, message):
         derecetemp = dereceint - 32
         derece = derecetemp / 5/9
         LOGGER.info(corba)
-        await message.reply_text(f"{il}/{ilce} Hava Durumu:\n\nGün: {gun}\nDurum: {durum}\nDerece: {derece}")
+        await message.reply_text(f"{il}/{ilce} Hava Durumu:\n\nGün: {gun}\nDurum: {durum}\nDerece: {derece}°C")
     except Exception as e:
         await message.reply_text(e)
