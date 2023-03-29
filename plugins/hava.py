@@ -43,6 +43,10 @@ async def fotogetir(bot, message):
         url = f"https://www.google.com/search?q={aranacak}+&prmd=imnv&sxsrf=APwXEde70utXdHW4TzxSkD4soDMpiDzMag:1680124608010&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiB-sDzh4L-AhXDcvEDHU7WBE4Q_AUIHigB&biw=360&bih=662&dpr=3"
         istek = requests.get(url)
         corba = BeautifulSoup(istek.content, "lxml")
+        fotourl = corba.findAll("img")
+        for foto in fotourl:
+            text = foto.get("alt")
+            await message.reply_text(text)
         LOGGER.info(corba)
     except Exception as e:
         await message.reply_text(e)
