@@ -40,9 +40,10 @@ async def fotogetir(bot, message):
     try:
         aranacaktemp = message.text.split(" ", 1)[1]
         aranacak = aranacaktemp.replace(" ", "+")
-        url = f"https://www.google.com/search?q={aranacak}+&prmd=imnv&sxsrf=APwXEde70utXdHW4TzxSkD4soDMpiDzMag:1680124608010&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiB-sDzh4L-AhXDcvEDHU7WBE4Q_AUIHigB&biw=360&bih=662&dpr=3"
+        url = f"https://yandex.com.tr/gorsel/touch/search?text={aranacak}&source=tabbar"
         istek = requests.get(url)
         corba = BeautifulSoup(istek.content, "lxml")
+        LOGGER.info(corba)
         fotourl = corba.findAll('div', class_='NZWO1b')
         for foto in fotourl:
             text1 = foto.find("img")
@@ -52,6 +53,5 @@ async def fotogetir(bot, message):
             with open(file_name, "wb") as dosya:
                dosya.write(r.content)  
             await message.reply_photo(file_name)
-        LOGGER.info(corba)
     except Exception as e:
         await message.reply_text(e)
