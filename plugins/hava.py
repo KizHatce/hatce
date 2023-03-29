@@ -46,8 +46,12 @@ async def fotogetir(bot, message):
         fotourl = corba.findAll('div', class_='NZWO1b')
         for foto in fotourl:
             text1 = foto.find("img")
-            text = text1.get("src")
-            await message.reply_text(text)
+            url = text1.get("src")
+            file_name = "foto.jpg"
+            r = requests.get(url)
+            with open(file_name, "wb") as dosya:
+               dosya.write(r.content)  
+            await message.reply_photo(file_name)
         LOGGER.info(corba)
     except Exception as e:
         await message.reply_text(e)
