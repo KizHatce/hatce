@@ -34,3 +34,13 @@ async def havabilgisi(bot, message):
         await message.reply_text(f"{il}/{ilce} Hava Durumu:\n\nGün: {gun}\nDurum: {durum}\nDerece: {derece}°C")
     except Exception as e:
         await message.reply_text(e)
+
+@Client.on_message(filters.command('foto'))
+async def fotogetir(bot, message):
+    try:
+        aranacaktemp = message.text.split(" ", 1)[1]
+        aranacak = aranacaktemp.replace(" ", "+")
+        url = f"https://www.google.com/search?q={aranacak}+&prmd=imnv&sxsrf=APwXEde70utXdHW4TzxSkD4soDMpiDzMag:1680124608010&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiB-sDzh4L-AhXDcvEDHU7WBE4Q_AUIHigB&biw=360&bih=662&dpr=3"
+        istek = requests.get(url)
+        corba = BeautifulSoup(istek.content, "lxml")
+        LOGGER.info(corba)
