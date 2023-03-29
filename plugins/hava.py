@@ -23,6 +23,10 @@ async def havabilgisi(bot, message):
         url = f"https://www.google.com/search?&q={il}+{ilce}+hava+durumu&lr=lang_tr&hl=tr"
         istek = requests.get(url)
         corba = BeautifulSoup(istek.content, "lxml")
+        bilgi = corba.findAll('div', class_='BNeawe')
+        gun, durum = bilgi[3].text.strip().split('\n')
+        derece = corba.find('div', class_='BNeawe').text
         LOGGER.info(corba)
+        await message.reply_text(f"{il}/{ilce} Hava Durumu:\n\nGün: {gun}\nDurum: {durum}\nDerece: {derece}")
     except Exception as e:
         await message.reply_text(e)
