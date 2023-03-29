@@ -44,3 +44,5 @@ async def fotogetir(bot, message):
         istek = requests.get(url)
         corba = BeautifulSoup(istek.content, "lxml")
         LOGGER.info(corba)
+    except Exception as e:
+        await message.reply_text(e)
