@@ -7,11 +7,17 @@ yaslar = ["57", "34", "52"]
 
 async def dongu(bot, message, yas, say, tahmin):
     say +=1
+    try:
+        tah = int(tahmin)
+    except:
+        tedilen = await bot.ask(message.chat.id, "Lütfen Sayı Gir..")
+        tahmin = tedilen.text
+        await dongu(bot, message, yas, say, tahmin)
     if int(tahmin) > int(yas):
         tedilen = await bot.ask(message.chat.id, "Yanlış Cevap!\nAşağı İn.. ")
     elif int(tahmin) < int(yas):
         tedilen = await bot.ask(message.chat.id, "Yanlış Cevap!\nYukarı Çık.. ")
-    if int(tedilen.text) == int(yas):
+    elif int(tedilen.text) == int(yas):
         await message.reply_text(f"Tebrikler {say} deneyişte doğru cevabı buldun..")
     else:
         tahmin = tedilen.text
@@ -21,6 +27,12 @@ async def yastahmin(bot, message, yas, say):
     tedilen = await bot.ask(message.chat.id, "Yaşımı Bul Bakalım..")
     say +=1
     tahmin = tedilen.text
+    try:
+        tah = int(tahmin)
+    except:
+        tedilen = await bot.ask(message.chat.id, "Lütfen Sayı Gir..")
+        tahmin = tedilen.text
+        await dongu(bot, message, yas, say, tahmin)
     if int(tedilen.text) == int(yas):
         await message.reply_text(f"Tebrikler **{say}** deneyişte doğru cevabı buldun..")
     else:
