@@ -8,7 +8,7 @@ async def fotooyunu(bot, message):
     try:
         dosya = random.randint(0, 3)
         dir = "plugins/fotolar"
-        temp = os.listdir(fotolar)[dosya]
+        temp = os.listdir(dir)[dosya]
         photo = f"plugins/fotolar/{temp}"
         await message.reply_photo(photo)
     except Exception as e:
