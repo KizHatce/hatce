@@ -8,7 +8,7 @@ async def fotooyunu(bot, message):
     try:
         dosya = random.randint(1, 3)
         say = 1
-        fotolar = "fotolar"
+        fotolar = "plugins/fotolar"
         for photo in os.listdir(fotolar):
             if int(say) == dosya:
                 await message.reply_photo(photo)
