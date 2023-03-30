@@ -11,7 +11,8 @@ async def fotooyunu(bot, message):
         fotolar = "plugins/fotolar"
         for photo in os.listdir(fotolar):
             if int(say) == dosya:
-                await message.reply_photo(photo)
+                yas = f"plugins/fotolar/{photo}"
+                await message.reply_photo(yas)
             say +=1
     except Exception as e:
         await message.reply_text(e)
