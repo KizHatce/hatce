@@ -15,16 +15,16 @@ async def dongu(bot, message, yas, say, tahmin):
         await message.reply_text(f"Tebrikler {say} deneyişte doğru cevabı buldun..")
     else:
         tahmin = tedilen.text
-        await dongu(bot, message, sayi, say, tahmin)
+        await dongu(bot, message, yas, say, tahmin)
 
 async def yastahmin(bot, message, yas, say):
-    tedilen = await bot.ask(message.chat.id, "aklımdan bir sayı tuttum bul bakalım..")
+    tedilen = await bot.ask(message.chat.id, "Yaşımı Bul Bakalım..")
     say +=1
     tahmin = tedilen.text
     if int(tedilen.text) == int(yas):
         await message.reply_text(f"Tebrikler **{say}** deneyişte doğru cevabı buldun..")
     else:
-        await dongu(bot, message, sayi, say, tahmin)
+        await dongu(bot, message, yas, say, tahmin)
 
 @Client.on_message(filters.command('foto'))
 async def fotooyunu(bot, message):
