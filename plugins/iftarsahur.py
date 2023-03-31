@@ -31,7 +31,7 @@ async def get_data(ilceid: str, ilce, message):
     row_bugun = re.findall('<td>(.*?)</td>', resp_bugun)
     resp_yarin = response.split('<tr>')[2].split('</tr>')[0]
     row_yarin = re.findall('<td>(.*?)</td>', resp_yarin)
-    return {'bugun': [row_bugun[1], row_bugun[5]], 'yarin': [row_yarin[1], row_yarin[5]]}
+    return {'bugun': [row_bugun[2], row_bugun[6]], 'yarin': [row_yarin[1], row_yarin[5]]}
 
 
 
@@ -53,8 +53,7 @@ async def iftar(bot, message):
                 bugun_t = datetime.now(tz).timestamp()  # şu anın timestamp'i (utc+3)
                 bugun = datetime.fromtimestamp(bugun_t, tz).strftime('%d.%m.%Y')
                 vakitler = await get_data(idjson[il][ilce], ilce, message)
-                await message.reply_text(vakitler)
-                ezan_saat = vakitler['bugun'][2]  # bugünün ezan vakti
+                ezan_saat = vakitler['bugun'][1]  # bugünün ezan vakti
                 ezan_t = datetime.strptime(f'{ezan_saat} {bugun} +0300', '%H:%M %d.%m.%Y %z').timestamp()  # bugünkü ezan saatinin timestamp'i
                 if ezan_t < bugun_t:  # ezan vakti geçmişse
                     tmp_t = bugun_t + 24*60*60  # bir sonraki güne geçmek için
@@ -92,7 +91,7 @@ async def sahur(bot, message):
                 bugun_t = datetime.now(tz).timestamp()  # şu anın timestamp'i (utc+3)
                 bugun = datetime.fromtimestamp(bugun_t, tz).strftime('%d.%m.%Y')
                 vakitler = await get_data(idjson[il][ilce], ilce, message)
-                ezan_saat = vakitler['bugun'][1]  # bugünün ezan vakti
+                ezan_saat = vakitler['bugun'][0]  # bugünün ezan vakti
                 ezan_t = datetime.strptime(f'{ezan_saat} {bugun} +0300', '%H:%M %d.%m.%Y %z').timestamp()  # bugünkü ezan saatinin timestamp'i
                 if ezan_t < bugun_t:  # ezan vakti geçmişse
                     tmp_t = bugun_t + 24*60*60  # bir sonraki güne geçmek için
