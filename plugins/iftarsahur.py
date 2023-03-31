@@ -31,7 +31,7 @@ async def get_data(ilceid: str, ilce, message):
     row_bugun = re.findall('<td>(.*?)</td>', resp_bugun)
     resp_yarin = response.split('<tr>')[2].split('</tr>')[0]
     row_yarin = re.findall('<td>(.*?)</td>', resp_yarin)
-    return {'bugun': [row_bugun[2], row_bugun[6]], 'yarin': [row_yarin[1], row_yarin[5]]}
+    return {'bugun': [row_bugun[2], row_bugun[6]], 'yarin': [row_yarin[2], row_yarin[6]]}
 
 
 
