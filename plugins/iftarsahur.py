@@ -53,6 +53,7 @@ async def iftar(bot, message):
                 bugun_t = datetime.now(tz).timestamp()  # şu anın timestamp'i (utc+3)
                 bugun = datetime.fromtimestamp(bugun_t, tz).strftime('%d.%m.%Y')
                 vakitler = await get_data(idjson[il][ilce], ilce, message)
+                await message.reply_text(vakitler)
                 ezan_saat = vakitler['bugun'][2]  # bugünün ezan vakti
                 ezan_t = datetime.strptime(f'{ezan_saat} {bugun} +0300', '%H:%M %d.%m.%Y %z').timestamp()  # bugünkü ezan saatinin timestamp'i
                 if ezan_t < bugun_t:  # ezan vakti geçmişse
