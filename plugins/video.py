@@ -181,12 +181,9 @@ async def ytvideoindir(bot, message):
     ydl_opts = {"format": "bestvideo[ext=mp4]"}
     try:
         text = message.text.split(" ", 1)
-        if len(text) < 2:
-            await message.reply_text("Hatalı Kullanım..\n\nDoğrusu: `/ytvideo Yeşil Uzaylı Dansı`")
-            return
-        else:
+        if "youtube.com" in message.text:
             m = await message.reply_text("`İndiriyorum..`")
-            link = text[1]
+            link = message.text
             video = await indir(link) 
             await m.edit("`Yüklüyorum..`")
             user = message.from_user
@@ -212,6 +209,8 @@ async def ytvideoindir(bot, message):
                 caption=caption)
             await m.delete()
             os.remove(video)
+        else:
+            return
     except Exception as e:
         await message.reply_text(e) 
 
