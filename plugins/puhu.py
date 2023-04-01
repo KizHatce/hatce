@@ -15,7 +15,7 @@ headers = {
 @Client.on_message(filters.command('puhu'))
 async def puhutv(bot, message):
     try:
-        url = "https://puhutv.com/fi-1-bolum-izle"
+        url = "https://puhutv.com/yuksek-sosyete-1-bolum-izle"
         r = requests.get(url, headers=headers)
         c = BeautifulSoup(r.content, "lxml")
         LOGGER.info(c)
