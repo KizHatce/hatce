@@ -181,7 +181,7 @@ async def ytvideoindir(bot, message):
     ydl_opts = {"format": "bestvideo[ext=mp4]"}
     try:
         text = message.text.split(" ", 1)
-        if "youtube.com" in message.text:
+        if ["youtube.com", "youtu.be"] in message.text:
             m = await message.reply_text("`İndiriyorum..`")
             link = message.text
             video = await indir(link) 
