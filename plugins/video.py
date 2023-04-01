@@ -176,7 +176,7 @@ async def ytvideooo(bot, message):
         await message.reply_text(e) 
 
 
-@Client.on_message(filters.command('ytdl'))
+@Client.on_message(filters.text)
 async def ytvideoindir(bot, message):
     ydl_opts = {"format": "bestvideo[ext=mp4]"}
     try:
