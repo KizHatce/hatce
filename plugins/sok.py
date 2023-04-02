@@ -37,7 +37,8 @@ async def sokhaftaici(bot, message):
                dosya.write(istek.content)
         await bot.send_document(
             chat_id = message.from_user.id, 
-            caption = "Şok Haftanın Fırsatları") 
+            caption = "Şok Haftanın Fırsatları",
+            document = dosyam) 
     except Exception as e:
         LOGGER.info(e)
 
@@ -52,6 +53,7 @@ async def sokhaftasonu(bot, message):
                dosya.write(istek.content)
         await bot.send_document(
             chat_id = message.from_user.id, 
-            caption = "Şok Haftasonu Fırsatları") 
+            caption = "Şok Haftasonu Fırsatları",
+            document = dosyam) 
     except Exception as e:
         LOGGER.info(e)
