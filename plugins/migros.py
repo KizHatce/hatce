@@ -22,8 +22,8 @@ async def migrosgecen(bot, message):
         brosurler = c.findAll('a', attrs={"class":"_df_button"})[0]
         uri = brosurler.get("source")
         tarih = brosurler.get("mcdate")
-        await bot.send_message(message.from_user.id, uri)
         file_name = uri.split("/")[1]
+        await bot.send_message(message.from_user.id, file_name)
         istek = requests.get(uri)
         with open(file_name, "wb") as dosya:
             dosya.write(istek.content) 
@@ -44,6 +44,7 @@ async def migrosguncel(bot, message):
         tarih = brosurler.get("mcdate")
         await bot.send_message(message.from_user.id, uri)
         file_name = uri.split("/")[1]
+        await bot.send_message(message.from_user.id, file_name)
         istek = requests.get(uri)
         with open(file_name, "wb") as dosya:
             dosya.write(istek.content) 
