@@ -22,15 +22,9 @@ async def bimbuhaftasali(bot, message):
         c = BeautifulSoup(r.content, "lxml")
         filtre = c.findAll('a', attrs={"class":"download"})[0]
         foto = filtre.get("src")
-        linkler.append(foto)
-        k = filtre.findAll('a', attrs={"class":"small"})
-        for l in k:
-            foto = l.get("src")
-            linkler.append(foto)
-        for foto in linkler:
-            await bot.send_photo(
-                chat_id = message.from_user.id,
-                photo = foto)
+        await bot.send_photo(
+            chat_id = message.from_user.id,
+            photo = foto)
     except Exception as e:
         await bot.send_message(message.from_user.id, e)
 
