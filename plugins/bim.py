@@ -14,6 +14,32 @@ butonlar = InlineKeyboardMarkup([[
            InlineKeyboardButton(f'Bim Bu Hafta Salı', callback_data='bimbs')],
            [InlineKeyboardButton(f'Bim Bu Hafta Cuma', callback_data='bimbc')]])
 
+async def bimgecenhafta(bot, message):
+    try:
+        fotolar = []
+        url = "https://www.bim.com.tr/Categories/680/afisler.aspx"
+        r = requests.get(url)
+        c = BeautifulSoup(r.content, "lxml")
+        filtre = c.findAll('a', attrs={"class":"download"})
+        sec = filtre[0]
+        href = sec.get('href')
+        foto = f"https://www.bim.com.tr{href}"
+        fotolar.append(foto)
+        c2 = sec.findAll('a', attrs={"class":"small"})
+        for i in c2:
+            foto1 = i.get("data-bigimg")
+            foto = f"https://www.bim.com.tr{foto1}"
+            fotolar.append(foto)
+        for foto in fotolar:
+            await bot.send_photo(
+                chat_id = message.from_user.id,
+                photo = foto) 
+    except Exception as e:
+       await bot.send_message(
+            chat_id = message.from_user.id,
+            text = e)  
+
+
 @Client.on_message(filters.command('bim') & filters.private)
 async def bimgetir(bot, message):
     try:
@@ -29,18 +55,4 @@ async def bimgetir(bot, message):
 async def bimsaligetir(bot, message):
     await message.answer("Bu Hafta'ki Bim Salı Broşürü Getiriliyor...",
                          show_alert=True)
-    try:
-        url = "https://www.bim.com.tr/Categories/680/afisler.aspx"
-        r = requests.get(url)
-        c = BeautifulSoup(r.content, "lxml")
-        filtre = c.findAll('a', attrs={"class":"download"})
-        sec = filtre[0]
-        href = sec.get('href')
-        foto = f"https://www.bim.com.tr{href}"
-        await bot.send_photo(
-            chat_id = message.from_user.id,
-            photo = foto) 
-    except Exception as e:
-       await bot.send_message(
-            chat_id = message.from_user.id,
-            text = e)  
+    await bimgecenhafta(bot, message)
