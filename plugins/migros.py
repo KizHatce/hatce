@@ -18,7 +18,10 @@ async def migrosguncel(bot, message):
         url = "https://www.money.com.tr/migroskop-dijital"
         r = requests.get(url)
         c = BeautifulSoup(r.content, "lxml")
-        LOGGER.info(c)
+        brosurler = c.findAll('a' attrs={"class":"_df_button"})
+        uri = brosurler[0]
+        await bot.send_message(message.from_user.id, uri)
+        istek = requests.get(uri)
     except Exception as e:
         await bot.send_message(message.from_user.id, e)
 
