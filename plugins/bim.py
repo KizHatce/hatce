@@ -35,7 +35,7 @@ async def bimbuhaftasali(bot, message):
         await bot.send_message(message.from_user.id, e)
 
 @Client.on_message(filters.command('bim') & filters.private)
-async def migros(bot, message):
+async def bimgetir(bot, message):
     try:
        text = f"Merhaba {message.from_user.mention},\nAşağıdaki butonlardan hangi Broşürleri istediğini seç 😊"
        await bot.send_message(
@@ -46,7 +46,7 @@ async def migros(bot, message):
         await message.reply_text(e)
 
 @Client.on_callback_query(filters.regex('^bimbs$'))
-async def migrosguncelgetir(bot, message):
+async def bimsaligetir(bot, message):
     await message.answer("Bu Hafta'ki Bim Salı Broşürü Getiriliyor...",
                          show_alert=True)
     await bimbuhaftasali(bot, message)
