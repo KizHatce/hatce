@@ -16,7 +16,9 @@ butonlar = InlineKeyboardMarkup([[
            ],[
            InlineKeyboardButton(f'A101 Haftanın Yıldızları', callback_data='haftayildiz')],
            [InlineKeyboardButton(f'A101 Hadi Fırsatları', callback_data="hadi")
-           ]]) 
+           ]
+           [InlineKeyboardButton(f'A101 Genel Kampanya', callback_data="a101genel")
+           ],]) 
 
 async def aldinaldingelecekhafta(bot, message):
     try:
@@ -53,6 +55,24 @@ async def haftaninyildizlari(bot, message):
         await bot.send_message(message.from_user.id, "Haftanın Yıldızları Başarıyla Getirildi..") 
     except Exception as e:
         await bot.send_message(message.from_user.id, e)
+
+async def a101genel(bot, message):
+    try:
+        url = "https://www.a101.com.tr/buyuk-oldugu-icin-ucuz-afisler"
+        r = requests.get(url)
+        c = BeautifulSoup(r.content, "lxml")
+        afislerr = c.findAll('img', attrs={"class":"image0"})
+        fotolar = []
+        for foto in afislerr:
+            photo = foto.get('src')
+            fotolar.append(photo)
+        for brosur in fotolar:
+            await bot.send_photo(
+                chat_id = message.from_user.id,
+                photo = brosur)
+        await bot.send_message(message.from_user.id, "A101 Genel Kampanyaları Başarıyla Getirildi..") 
+    except Exception as e:
+        await bot.send_message(message.from_user.id, e) 
 
 async def a101hadi(bot, message):
     try:
@@ -124,3 +144,9 @@ async def a101hadigetir(bot, message):
     await message.answer("A101 Hadi Fırsatları Getiriliyor...",
                          show_alert=True)
     await a101hadi(bot, message)
+
+@@Client.on_callback_query(filters.regex('^a101genel$'))
+async def a101genelgetir(bot, message):
+    await message.answer("A101 Genel Kampanyalar Getiriliyor...",
+                         show_alert=True)
+    await a101genel(bot, message)
