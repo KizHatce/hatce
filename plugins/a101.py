@@ -145,7 +145,7 @@ async def a101hadigetir(bot, message):
                          show_alert=True)
     await a101hadi(bot, message)
 
-@@Client.on_callback_query(filters.regex('^a101genel$'))
+@Client.on_callback_query(filters.regex('^a101genel$'))
 async def a101genelgetir(bot, message):
     await message.answer("A101 Genel Kampanyalar Getiriliyor...",
                          show_alert=True)
