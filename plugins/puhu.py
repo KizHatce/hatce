@@ -9,7 +9,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def afisgetir(bot, message):
     try:
-        url = "https://www.a101.com.tr/"
+        url = "https://www.a101.com.tr/aldin-aldin-gelecek-hafta-brosuru"
         r = requests.get(url)
         c = BeautifulSoup(r.content, "lxml")
         LOGGER.info(c)
