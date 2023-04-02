@@ -18,7 +18,7 @@ async def migrosguncel(bot, message):
         url = "https://www.money.com.tr/migroskop-dijital"
         r = requests.get(url)
         c = BeautifulSoup(r.content, "lxml")
-        brosurler = c.findAll('a' attrs={"class":"_df_button"})[0]
+        brosurler = c.findAll('a', attrs={"class":"_df_button"})[0]
         uri = brosurler.get("source")
         tarih = brosurler.get("mcdate")
         await bot.send_message(message.from_user.id, uri)
