@@ -110,7 +110,7 @@ async def aldinaldinbuhafta(bot, message):
     except Exception as e:
         await bot.send_message(message.from_user.id, e)
 
-@Client.on_message(filters.command('a101'))
+@Client.on_message(filters.command('a101') & filters.private)
 async def a101getir(bot, message):
     try:
        text = f"Merhaba {message.from_user.mention},\nAşağıdaki butonlardan hangi Broşürleri istediğini seç 😊"
