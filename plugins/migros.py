@@ -40,7 +40,6 @@ async def migrosguncel(bot, message):
         c = BeautifulSoup(r.content, "lxml")
         brosurler = c.findAll('button', attrs={"class":"btn btn-white-purple-line center-block _df_button"})[0]
         tarih = brosurler.get("mcdate")
-        file_name = text.split("/")[1]
         istek = requests.get(uri)
         d = istek.headers
         LOGGER.info(d)
