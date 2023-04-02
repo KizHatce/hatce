@@ -31,9 +31,13 @@ async def bimsaligetir(bot, message):
                          show_alert=True)
     try:
         url = "https://www.bim.com.tr/Categories/680/afisler.aspx"
-        await bot.send_message(
+        r = requests.get(url)
+        c = BeautifulSoup(r.content, "lxml")
+        filtre = c.findAll('a', attrs={"class":"download"})
+        foto = filtre[0].get("src")
+        await bot.send_photo(
             chat_id = message.from_user.id,
-            text = f"{url}") 
+            photo = foto) 
     except Exception as e:
        await bot.send_message(
             chat_id = message.from_user.id,
