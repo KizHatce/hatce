@@ -36,7 +36,10 @@ async def bimgecenhaftasali(bot, message):
         for foto in fotolar:
             await bot.send_photo(
                 chat_id = message.from_user.id,
-                photo = foto) 
+                photo = foto)
+        await bot.send_message(
+            chat_id = message.from_user.id,
+            text = "Bim Geçen Hafta Salı Broşürleri Getirildi..")   
     except Exception as e:
        await bot.send_message(
             chat_id = message.from_user.id,
@@ -64,6 +67,9 @@ async def bimgecenhaftacuma(bot, message):
             await bot.send_photo(
                 chat_id = message.from_user.id,
                 photo = foto) 
+        await bot.send_message(
+            chat_id = message.from_user.id,
+            text = "Bim Geçen Hafta Cuma Broşürleri Getirildi..") 
     except Exception as e:
        await bot.send_message(
             chat_id = message.from_user.id,
@@ -90,6 +96,9 @@ async def bimbuhaftasali(bot, message):
             await bot.send_photo(
                 chat_id = message.from_user.id,
                 photo = foto) 
+        await bot.send_message(
+            chat_id = message.from_user.id,
+            text = "Bim Bu Hafta Salı Broşürleri Getirildi..")    
     except Exception as e:
        await bot.send_message(
             chat_id = message.from_user.id,
@@ -117,6 +126,9 @@ async def bimbuhaftacuma(bot, message):
             await bot.send_photo(
                 chat_id = message.from_user.id,
                 photo = foto) 
+        await bot.send_message(
+            chat_id = message.from_user.id,
+            text = "Bim Bu Hafta Cuma Broşürleri Getirildi..")
     except Exception as e:
        await bot.send_message(
             chat_id = message.from_user.id,
