@@ -34,7 +34,6 @@ async def bimsaligetir(bot, message):
         r = requests.get(url)
         c = BeautifulSoup(r.content, "lxml")
         filtre = c.findAll('a', attrs={"class":"download"})
-        foto = filtre[0].get("src")
         await bot.send_photo(
             chat_id = message.from_user.id,
             photo = foto) 
