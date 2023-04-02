@@ -161,10 +161,10 @@ async def bimcumagetir(bot, message):
 async def bimbusaligetir(bot, message):
     await message.answer("Bu Hafta'ki Bim Salı Broşürü Getiriliyor...",
                          show_alert=True)
-    await bimgecenhaftasali(bot, message)
+    await bimbuhaftasali(bot, message)
 
 @Client.on_callback_query(filters.regex('^bimbc$'))
 async def bimbucumagetir(bot, message):
     await message.answer("Bu Hafta'ki Bim Cuma Broşürü Getiriliyor...",
                          show_alert=True)
-    await bimgecenhaftacuma(bot, message)
+    await bimbuhaftacuma(bot, message)
