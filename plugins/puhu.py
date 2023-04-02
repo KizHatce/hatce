@@ -44,10 +44,10 @@ async def aldinaldinbuhafta(bot, message):
             fotolar.append(photo)
         for brosur in fotolar:
             await bot.send_photo(
-                chat_id = message.chat.id,
+                chat_id = message.from_user.id,
                 photo = brosur)
     except Exception as e:
-        await message.reply_text(e)
+        await bot.send_message(message.from_user.id, e)
 
 @Client.on_message(filters.command('a101'))
 async def a101getir(bot, message):
