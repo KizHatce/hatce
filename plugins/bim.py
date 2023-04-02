@@ -14,20 +14,6 @@ butonlar = InlineKeyboardMarkup([[
            InlineKeyboardButton(f'Bim Bu Hafta Salı', callback_data='bimbs')],
            [InlineKeyboardButton(f'Bim Bu Hafta Cuma', callback_data='bimbc')]])
 
-async def bimbuhaftasali(bot, message):
-    try:
-        linkler = []
-        url = "https://www.bim.com.tr/Categories/680/afisler.aspx"
-        r = requests.get(url)
-        c = BeautifulSoup(r.content, "lxml")
-        filtre = c.findAll('a', attrs={"class":"download"})[0]
-        foto = filtre.get("src")
-        await bot.send_photo(
-            chat_id = message.from_user.id,
-            photo = foto)
-    except Exception as e:
-        await bot.send_message(message.from_user.id, e)
-
 @Client.on_message(filters.command('bim') & filters.private)
 async def bimgetir(bot, message):
     try:
@@ -43,4 +29,16 @@ async def bimgetir(bot, message):
 async def bimsaligetir(bot, message):
     await message.answer("Bu Hafta'ki Bim Salı Broşürü Getiriliyor...",
                          show_alert=True)
-    await bimbuhaftasali(bot, message)
+    try:
+        url = "https://www.bim.com.tr/Categories/680/afisler.aspx"
+        r = requests.get(url)
+        c = BeautifulSoup(r.content, "lxml")
+        filtre = c.findAll('a', attrs={"class":"download"})[0]
+        foto = filtre.get("src")
+        await bot.send_photo(
+            chat_id = message.from_user.id,
+            photo = foto) 
+    except Exception as e:
+       await bot.send_message(
+            chat_id = message.from_user.id,
+            text = e)  
