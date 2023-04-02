@@ -36,6 +36,6 @@ async def migros(bot, message):
 
 @Client.on_callback_query(filters.regex('^bimbs$'))
 async def migrosguncelgetir(bot, message):
-    await message.answer("Bu Hafta'ki Migros Broşürü Getiriliyor...",
+    await message.answer("Bu Hafta'ki Bim Salı Broşürü Getiriliyor...",
                          show_alert=True)
     await bimbuhaftasali(bot, message)
