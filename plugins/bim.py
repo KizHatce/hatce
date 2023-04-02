@@ -28,7 +28,7 @@ async def bimgecenhafta(bot, message):
         kucukler = c.findAll('div', attrs={"class":"smallArea col-4 col-md-3"})[0] 
         smal = kucukler.findAll('a', attrs={"class":"small"})
         for i in smal:
-            href = i.get("href")
+            href = i.get("data-bigimg")
             foto =  f"https://www.bim.com.tr{href}"
             fotolar.append(foto)
         for foto in fotolar:
