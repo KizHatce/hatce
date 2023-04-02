@@ -11,9 +11,10 @@ LOGGER = logging.getLogger(__name__)
 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 butonlar = InlineKeyboardMarkup([[
-           InlineKeyboardButton(f'Migros Güncel', callback_data='migrosg')]])
+           InlineKeyboardButton(f'Migros Güncel', callback_data='migrosg')],
+           [InlineKeyboardButton(f'Migros Geçen Hafta', callback_data='migrosgecenn')]])
 
-async def migrosguncel(bot, message):
+async def migrosgecen(bot, message):
     try:
         url = "https://www.money.com.tr/migroskop-dijital"
         r = requests.get(url)
@@ -22,7 +23,34 @@ async def migrosguncel(bot, message):
         uri = brosurler.get("source")
         tarih = brosurler.get("mcdate")
         await bot.send_message(message.from_user.id, uri)
+        file_name = uri.split("/")[1]
         istek = requests.get(uri)
+        with open(file_name, "wb") as dosya:
+            dosya.write(istek.content) 
+        await bot.send_document(
+            chat_id = message.from_user.id,
+            document = file_name,
+            caption = tarih)
+    except Exception as e:
+        await bot.send_message(message.from_user.id, e)
+
+async def migrosguncel(bot, message):
+    try:
+        url = "https://www.money.com.tr/migroskop-dijital"
+        r = requests.get(url)
+        c = BeautifulSoup(r.content, "lxml")
+        brosurler = c.findAll('button', attrs={"class":"btn btn-white-purple-line center-block _df_button"})[0]
+        uri = brosurler.get("source")
+        tarih = brosurler.get("mcdate")
+        await bot.send_message(message.from_user.id, uri)
+        file_name = uri.split("/")[1]
+        istek = requests.get(uri)
+        with open(file_name, "wb") as dosya:
+            dosya.write(istek.content) 
+        await bot.send_document(
+            chat_id = message.from_user.id,
+            document = file_name,
+            caption = tarih)
     except Exception as e:
         await bot.send_message(message.from_user.id, e)
 
@@ -42,3 +70,9 @@ async def migrosguncelgetir(bot, message):
     await message.answer("Bu Hafta'ki Migros Broşürü Getiriliyor...",
                          show_alert=True)
     await migrosguncel(bot, message)
+
+@Client.on_callback_query(filters.regex('^migrosgecenn$'))
+async def migrosgecengetir(bot, message):
+    await message.answer("Geçen Haftaki Migros Broşürü Getiriliyor...",
+                         show_alert=True)
+    await migrosgecen(bot, message)
