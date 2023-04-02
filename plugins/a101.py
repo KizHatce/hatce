@@ -18,7 +18,7 @@ butonlar = InlineKeyboardMarkup([[
            [InlineKeyboardButton(f'A101 Hadi Fırsatları', callback_data="hadi")
            ],
            [InlineKeyboardButton(f'A101 Genel Kampanya', callback_data="a101genel")
-           ],]) 
+           ]]) 
 
 async def aldinaldingelecekhafta(bot, message):
     try:
