@@ -12,7 +12,10 @@ async def afisgetir(bot, message):
         url = "https://www.a101.com.tr/aldin-aldin-gelecek-hafta-brosuru"
         r = requests.get(url)
         c = BeautifulSoup(r.content, "lxml")
-        LOGGER.info(c)
+        afislerr = c.findAll('img', attrs={"class":"image0"})
+        for foto in afislerr:
+            photo = foto.get('src')
+            await message.reply_text(photo)
     except Exception as e:
         await message.reply_text(e)
 
