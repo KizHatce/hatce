@@ -7,17 +7,19 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
 
-headers = {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-          "content-type": "application/json",
-          } 
-
-@Client.on_message(filters.command('puhu'))
-async def puhutv(bot, message):
+async def afisgetir(bot, message):
     try:
-        url = "https://puhutv.com/yuksek-sosyete-1-bolum-izle"
-        r = requests.get(url, headers=headers)
+        url = "https://www.a101.com.tr/"
+        r = requests.get(url)
         c = BeautifulSoup(r.content, "lxml")
         LOGGER.info(c)
+    except Exception as e:
+        await message.reply_text(e)
+
+
+@Client.on_message(filters.command('a101'))
+async def a101getir(bot, message):
+    try:
+       afisler = await afisgetir(bot, message)
     except Exception as e:
         await message.reply_text(e)
