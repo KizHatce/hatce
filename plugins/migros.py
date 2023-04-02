@@ -23,9 +23,7 @@ async def migrosgecen(bot, message):
         uri = brosurler.get("source")
         tarih = brosurler.get("mcdate")
         istek = requests.get(uri)
-        d = istek.headers
-        LOGGER.info(d)
-        await bot.send_message(message.from_user.id, d)
+        file_name = "brosur.pdf"
         with open(file_name, "wb") as dosya:
             dosya.write(istek.content) 
         await bot.send_document(
@@ -44,9 +42,7 @@ async def migrosguncel(bot, message):
         tarih = brosurler.get("mcdate")
         uri = brosurler.get("source")
         istek = requests.get(uri)
-        d = istek.headers
-        LOGGER.info(d)
-        await bot.send_message(message.from_user.id, d)
+        file_name = "brosur.pdf"
         with open(file_name, "wb") as dosya:
             dosya.write(istek.content) 
         await bot.send_document(
