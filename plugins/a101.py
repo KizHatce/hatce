@@ -50,7 +50,7 @@ async def haftaninyildizlari(bot, message):
             await bot.send_photo(
                 chat_id = message.from_user.id,
                 photo = brosur)
-        await bot.send_message(message.from_user.id, "Aldın Aldın Gelecek Hafta Broşürleri Başarıyla Getirildi..") 
+        await bot.send_message(message.from_user.id, "Haftanın Yıldızları Başarıyla Getirildi..") 
     except Exception as e:
         await bot.send_message(message.from_user.id, e)
 
@@ -68,7 +68,7 @@ async def a101hadi(bot, message):
             await bot.send_photo(
                 chat_id = message.from_user.id,
                 photo = brosur)
-        await bot.send_message(message.from_user.id, "Aldın Aldın Gelecek Hafta Broşürleri Başarıyla Getirildi..") 
+        await bot.send_message(message.from_user.id, "A101 Hadi Fırsatları Başarıyla Getirildi..") 
     except Exception as e:
         await bot.send_message(message.from_user.id, e)
 
