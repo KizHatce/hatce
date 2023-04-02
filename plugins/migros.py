@@ -23,7 +23,8 @@ async def migrosgecen(bot, message):
         uri = brosurler.get("source")
         tarih = brosurler.get("mcdate")
         istek = requests.get(uri)
-        file_name = "brosur.pdf"
+        file = uri.split("mcstage/")
+        file_name = file[1]
         with open(file_name, "wb") as dosya:
             dosya.write(istek.content) 
         await bot.send_document(
