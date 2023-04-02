@@ -22,7 +22,8 @@ async def migrosgecen(bot, message):
         brosurler = c.findAll('a', attrs={"class":"_df_button"})[0]
         uri = brosurler.get("source")
         tarih = brosurler.get("mcdate")
-        file_name = uri.split("/")[1]
+        text = f"{uri}"
+        file_name = text.split("/")[1]
         await bot.send_message(message.from_user.id, file_name)
         istek = requests.get(uri)
         with open(file_name, "wb") as dosya:
@@ -41,9 +42,10 @@ async def migrosguncel(bot, message):
         c = BeautifulSoup(r.content, "lxml")
         brosurler = c.findAll('button', attrs={"class":"btn btn-white-purple-line center-block _df_button"})[0]
         uri = brosurler.get("source")
+        text = f"{uri}"
         tarih = brosurler.get("mcdate")
         await bot.send_message(message.from_user.id, uri)
-        file_name = uri.split("/")[1]
+        file_name = text.split("/")[1]
         await bot.send_message(message.from_user.id, file_name)
         istek = requests.get(uri)
         with open(file_name, "wb") as dosya:
