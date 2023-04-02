@@ -10,8 +10,10 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 LOGGER = logging.getLogger(__name__)
 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-butonlar = InlineKeyboardMarkup([[
-           InlineKeyboardButton(f'Bim Bu Hafta Salı', callback_data='bimbs')],
+butonlar = InlineKeyboardMarkup([
+           [InlineKeyboardButton(f'Bim Gelecek Hafta Salı', callback_data='bimges')],
+           [InlineKeyboardButton(f'Bim Gelecek Hafta Cuma', callback_data='bimgec')],
+           [InlineKeyboardButton(f'Bim Bu Hafta Salı', callback_data='bimbs')],
            [InlineKeyboardButton(f'Bim Bu Hafta Cuma', callback_data='bimbc')],
            [InlineKeyboardButton(f'Bim Geçen Hafta Salı', callback_data='bimgs')],
            [InlineKeyboardButton(f'Bim Geçen Hafta Cuma', callback_data='bimgc')]])
@@ -134,6 +136,65 @@ async def bimbuhaftacuma(bot, message):
             chat_id = message.from_user.id,
             text = e)  
 
+async def bimgelecekhaftasali(bot, message):
+    try:
+        fotolar = []
+        url = "https://www.bim.com.tr/Categories/680/afisler.aspx"
+        r = requests.get(url)
+        c = BeautifulSoup(r.content, "lxml")
+        filtre = c.findAll('a', attrs={"class":"download"})
+        sec = filtre[4]
+        href = sec.get('href')
+        foto = f"https://www.bim.com.tr{href}"
+        fotolar.append(foto)
+        kucukler = c.findAll('div', attrs={"class":"smallArea col-4 col-md-3"})[4] 
+        smal = kucukler.findAll('a', attrs={"class":"small"})
+        for i in smal:
+            href = i.get("data-bigimg")
+            foto =  f"https://www.bim.com.tr{href}"
+            fotolar.append(foto)
+        for foto in fotolar:
+            await bot.send_photo(
+                chat_id = message.from_user.id,
+                photo = foto) 
+        await bot.send_message(
+            chat_id = message.from_user.id,
+            text = "Bim Gelecek Hafta Salı Broşürleri Getirildi..")    
+    except Exception as e:
+       await bot.send_message(
+            chat_id = message.from_user.id,
+            text = e)  
+
+
+async def bimgelecekhaftacuma(bot, message):
+    try:
+        fotolar = []
+        url = "https://www.bim.com.tr/Categories/680/afisler.aspx"
+        r = requests.get(url)
+        c = BeautifulSoup(r.content, "lxml")
+        filtre = c.findAll('a', attrs={"class":"download"})
+        sec = filtre[5]
+        href = sec.get('href')
+        foto = f"https://www.bim.com.tr{href}"
+        fotolar.append(foto)
+        kucukler = c.findAll('div', attrs={"class":"smallArea col-4 col-md-3"})[5] 
+        smal = kucukler.findAll('a', attrs={"class":"small"})
+        for i in smal:
+            href = i.get("data-bigimg")
+            foto =  f"https://www.bim.com.tr{href}"
+            fotolar.append(foto)
+        for foto in fotolar:
+            await bot.send_photo(
+                chat_id = message.from_user.id,
+                photo = foto) 
+        await bot.send_message(
+            chat_id = message.from_user.id,
+            text = "Bim Gelecek Hafta Cuma Broşürleri Getirildi..")
+    except Exception as e:
+       await bot.send_message(
+            chat_id = message.from_user.id,
+            text = e)  
+
 @Client.on_message(filters.command('bim') & filters.private)
 async def bimgetir(bot, message):
     try:
@@ -168,3 +229,15 @@ async def bimbucumagetir(bot, message):
     await message.answer("Bu Hafta'ki Bim Cuma Broşürü Getiriliyor...",
                          show_alert=True)
     await bimbuhaftacuma(bot, message)
+
+@Client.on_callback_query(filters.regex('^bimges$'))
+async def bimgeleceksaligetir(bot, message):
+    await message.answer("Gelecek Hafta'ki Bim Salı Broşürü Getiriliyor...",
+                         show_alert=True)
+    await bimgelecekhaftasali(bot, message)
+
+@Client.on_callback_query(filters.regex('^bimgec$'))
+async def bimgelecekcumagetir(bot, message):
+    await message.answer("Gelecek Hafta'ki Bim Cuma Broşürü Getiriliyor...",
+                         show_alert=True)
+    await bimgelecekhaftacuma(bot, message)
