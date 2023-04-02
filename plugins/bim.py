@@ -16,7 +16,7 @@ butonlar = InlineKeyboardMarkup([[
 
 async def bimbuhaftasali(bot, message):
     try:
-        linkler =×[]
+        linkler = []
         url = "https://www.bim.com.tr/Categories/680/afisler.aspx"
         r = requests.get(url)
         c = BeautifulSoup(r.content, "lxml")
