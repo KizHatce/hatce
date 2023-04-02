@@ -11,7 +11,7 @@ LOGGER = logging.getLogger(__name__)
 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 butonlar = InlineKeyboardMarkup([[
-           InlineKeyboardButton(f'Migros Güncel', callback_data='migrosg')],
+           InlineKeyboardButton(f'Migros Bu Hafta', callback_data='migrosg')],
            [InlineKeyboardButton(f'Migros Geçen Hafta', callback_data='migrosgecenn')]])
 
 async def migrosgecen(bot, message):
