@@ -19,3 +19,4 @@ bs4
 lxml
 youtube-video-scraping
 pyromod
+pdf2image
