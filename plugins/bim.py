@@ -81,12 +81,12 @@ async def bimgetir(bot, message):
 
 @Client.on_callback_query(filters.regex('^bimgs$'))
 async def bimsaligetir(bot, message):
-    await message.answer("Bu Hafta'ki Bim Salı Broşürü Getiriliyor...",
+    await message.answer("Geçen Hafta'ki Bim Salı Broşürü Getiriliyor...",
                          show_alert=True)
     await bimgecenhaftasali(bot, message)
 
 @Client.on_callback_query(filters.regex('^bimgc$'))
-async def bimsaligetir(bot, message):
-    await message.answer("Bu Hafta'ki Bim Salı Broşürü Getiriliyor...",
+async def bimcumagetir(bot, message):
+    await message.answer("Geçen Hafta'ki Bim Cuma Broşürü Getiriliyor...",
                          show_alert=True)
     await bimgecenhaftacuma(bot, message)
