@@ -25,10 +25,11 @@ async def bimgecenhafta(bot, message):
         href = sec.get('href')
         foto = f"https://www.bim.com.tr{href}"
         fotolar.append(foto)
-        c2 = sec.findAll('a', attrs={"class":"small"})
-        for i in c2:
-            foto1 = i.get("data-bigimg")
-            foto = f"https://www.bim.com.tr{foto1}"
+        kucukler = c.findAll('div', attrs={"class":"smallArea col-4 col-md-3"})[0] 
+        smal = kucukler.findAll('a', attrs={"class":"small"})
+        for i in smal:
+            href = i.get("href")
+            foto =  f"https://www.bim.com.tr{href}"
             fotolar.append(foto)
         for foto in fotolar:
             await bot.send_photo(
