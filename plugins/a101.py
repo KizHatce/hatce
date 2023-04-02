@@ -14,13 +14,49 @@ butonlar = InlineKeyboardMarkup([[
            InlineKeyboardButton(f'A101 Bu Hafta Aldın Aldın', callback_data='buhaftaaldin')],
            [InlineKeyboardButton(f'A101 Gelecek Hafta Aldın Aldın', callback_data='gelecekhaftaaldin')
            ],[
-           InlineKeyboardButton(f'A101 Bu Haftanın Yıldızları', callback_data='buhaftayildiz')],
-           [InlineKeyboardButton(f'A101 Gelecek Haftanın Yıldızları', callback_data="gelecekhaftayildiz")
+           InlineKeyboardButton(f'A101 Haftanın Yıldızları', callback_data='haftayildiz')],
+           [InlineKeyboardButton(f'A101 Hadi Fırsatları', callback_data="hadi")
            ]]) 
 
 async def aldinaldingelecekhafta(bot, message):
     try:
         url = "https://www.a101.com.tr/aldin-aldin-gelecek-hafta-brosuru"
+        r = requests.get(url)
+        c = BeautifulSoup(r.content, "lxml")
+        afislerr = c.findAll('img', attrs={"class":"image0"})
+        fotolar = []
+        for foto in afislerr:
+            photo = foto.get('src')
+            fotolar.append(photo)
+        for brosur in fotolar:
+            await bot.send_photo(
+                chat_id = message.from_user.id,
+                photo = brosur)
+        await bot.send_message(message.from_user.id, "Aldın Aldın Gelecek Hafta Broşürleri Başarıyla Getirildi..") 
+    except Exception as e:
+        await bot.send_message(message.from_user.id, e)
+
+async def haftaninyildizlari(bot, message):
+    try:
+        url = "https://www.a101.com.tr/afisler-haftanin-yildizlari"
+        r = requests.get(url)
+        c = BeautifulSoup(r.content, "lxml")
+        afislerr = c.findAll('img', attrs={"class":"image0"})
+        fotolar = []
+        for foto in afislerr:
+            photo = foto.get('src')
+            fotolar.append(photo)
+        for brosur in fotolar:
+            await bot.send_photo(
+                chat_id = message.from_user.id,
+                photo = brosur)
+        await bot.send_message(message.from_user.id, "Aldın Aldın Gelecek Hafta Broşürleri Başarıyla Getirildi..") 
+    except Exception as e:
+        await bot.send_message(message.from_user.id, e)
+
+async def a101hadi(bot, message):
+    try:
+        url = "https://www.a101.com.tr/afisler-hadi"
         r = requests.get(url)
         c = BeautifulSoup(r.content, "lxml")
         afislerr = c.findAll('img', attrs={"class":"image0"})
@@ -66,13 +102,25 @@ async def a101getir(bot, message):
         await message.reply_text(e)
 
 @Client.on_callback_query(filters.regex('^buhaftaaldin$'))
-async def aldinaldinbu(bot, message):
+async def aldinaldinbugetir(bot, message):
     await message.answer("Bu Hafta Aldın Aldın Broşürleri Getiriliyor...",
                          show_alert=True)
     await aldinaldinbuhafta(bot, message)
 
 @Client.on_callback_query(filters.regex('^gelecekhaftaaldin$'))
-async def aldinaldingelecek(bot, message):
+async def aldinaldingelecekgetir(bot, message):
     await message.answer("Gelecek Hafta Aldın Aldın Broşürleri Getiriliyor...",
                          show_alert=True)
     await aldinaldingelecekhafta(bot, message)
+
+@Client.on_callback_query(filters.regex('^haftayildiz$'))
+async def haftaninyildizlarigetir(bot, message):
+    await message.answer("Haftanın Yıldızları Getiriliyor...",
+                         show_alert=True)
+    await haftaninyildizlari(bot, message)
+
+@Client.on_callback_query(filters.regex('^hadi$'))
+async def a101hadigetir(bot, message):
+    await message.answer("A101 Hadi Fırsatları Getiriliyor...",
+                         show_alert=True)
+    await a101hadi(bot, message)
