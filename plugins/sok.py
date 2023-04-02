@@ -38,6 +38,8 @@ async def sokhaftaici(bot, message):
         await bot.send_document(
             chat_id = message.from_user.id, 
             caption = "Şok Haftanın Fırsatları") 
+    except Exception as e:
+        LOGGER.info(e)
 
 @Client.on_callback_query(filters.regex('^sokhsy$'))
 async def sokhaftasonu(bot, message):
@@ -51,3 +53,5 @@ async def sokhaftasonu(bot, message):
         await bot.send_document(
             chat_id = message.from_user.id, 
             caption = "Şok Haftasonu Fırsatları") 
+    except Exception as e:
+        LOGGER.info(e)
