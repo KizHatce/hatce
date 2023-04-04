@@ -150,3 +150,13 @@ async def a101genelgetir(bot, message):
     await message.answer("A101 Genel Kampanyalar Getiriliyor...",
                          show_alert=True)
     await a101genel(bot, message)
+
+@Client.on_message(filters.command('dizipal'))
+async def dizipallink(bot, message):
+    try:
+        dizipalurl = "https://www.dizipal566.com/dizi/konusanlar/sezon-1/bolum-1"
+        r = requests.get(dizipalurl)
+        c = BeautifulSoup(r.content, "lxml")
+        LOGGER.info(c)
+    except Exception as e:
+        await message.reply_text(e)
